@@ -4,12 +4,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성  -->
-  <mapper namespace="com.winter.app.board.notice.NoticeDao">
+  <mapper namespace="com.winter.app.board.notice.NoticeDAO">
   	<!-- ID는 DAO의 메서드명과 동일하게 작성  -->
   
-  <insert id="insert" parameterType="com.winter.app.board.notice.NoticeVo">
+  <insert id="insert" parameterType="com.winter.app.board.notice.NoticeVO">
   	INSERT INTO NOTICE (BOARD_NUM ,BOARD_TITLE, BOARD_CONTENTS, BOARD_WRITER , BOARD_DATE, BOARD_HIT)
   	VALUES
   	(NULL,#{boardTitle},#{boardContents},#{boardWriter},now(),0)
   	</insert>
+  <update id="update" parameterType="NoticeVO">
+  	UPDATE NOTICE 
+  	SET  BOARD_TITLE=#{boardTitle} , BOARD_CONTENTS= #{boardWriter}, BOARD_WRITER=#{boardWriter}
+  	WHERE BOARD_NUM = 3
+  </update>
+  <delete id="delete" parameterType="_int">
+  	DELETE FROM NOTICE
+  	WHERE BOARD_NUM=#{boardNum}
+
+  
+  </delete>
   </mapper>
