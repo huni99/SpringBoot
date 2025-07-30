@@ -38,7 +38,7 @@ class NoticeDAOTest {
 //	}
 	@Test
 	void deleteTest() throws Exception{
-		int boardNum=5;
+		int boardNum=3;
 		int result = noticeDao.delete(boardNum);
 	
 		assertEquals(1, result);
