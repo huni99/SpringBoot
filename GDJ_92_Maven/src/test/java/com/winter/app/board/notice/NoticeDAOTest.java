@@ -1,12 +1,18 @@
 package com.winter.app.board.notice;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.winter.app.board.BoardVO;
+
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootTest
+@Slf4j
 class NoticeDAOTest {
 	
 	@Autowired
@@ -36,12 +42,20 @@ class NoticeDAOTest {
 //		assertEquals(1, result);
 //	
 //	}
+//	@Test
+//	void deleteTest() throws Exception{
+//		int boardNum=3;
+//		int result = noticeDao.delete(boardNum);
+//	
+//		assertEquals(1, result);
+//	
+//	}
 	@Test
-	void deleteTest() throws Exception{
-		int boardNum=3;
-		int result = noticeDao.delete(boardNum);
-	
-		assertEquals(1, result);
-	
+	void detailTest() throws Exception{
+		NoticeVO noticeVO = new NoticeVO();
+		noticeVO.setBoardNum(1L);
+		BoardVO boardVO= noticeDao.detail(noticeVO);
+		log.info("result : {}",boardVO);
+		assertNotNull(boardVO);
 	}
 }
