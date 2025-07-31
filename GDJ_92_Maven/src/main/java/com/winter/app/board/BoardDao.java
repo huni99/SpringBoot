@@ -1,7 +1,11 @@
 package com.winter.app.board;
 
+import com.winter.app.board.notice.NoticeVO;
+
 public interface BoardDao {
 	
+	//detail
+	public BoardVO detail(BoardVO vo )throws Exception;
 	//insert
 	public int insert(BoardVO vo)throws Exception;
 	//update
