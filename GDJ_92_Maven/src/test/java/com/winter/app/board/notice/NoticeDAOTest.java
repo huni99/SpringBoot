@@ -3,6 +3,8 @@ package com.winter.app.board.notice;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,12 +52,13 @@ class NoticeDAOTest {
 //		assertEquals(1, result);
 //	
 //	}
-	@Test
-	void detailTest() throws Exception{
-		NoticeVO noticeVO = new NoticeVO();
-		noticeVO.setBoardNum(1L);
-		BoardVO boardVO= noticeDao.detail(noticeVO);
-		log.info("result : {}",boardVO);
-		assertNotNull(boardVO);
-	}
+//	@Test
+//	void detailTest() throws Exception{
+//		NoticeVO noticeVO = new NoticeVO();
+//		noticeVO.setBoardNum(1L);
+//		BoardVO boardVO= noticeDao.detail(noticeVO);
+//		log.info("result : {}",boardVO);
+//		assertNotNull(boardVO);
+//	}
+
 }

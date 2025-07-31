@@ -1,6 +1,7 @@
 package com.winter.app.board;
 
-import com.winter.app.board.notice.NoticeVO;
+import java.util.List;
+
 
 public interface BoardDao {
 	
@@ -12,4 +13,7 @@ public interface BoardDao {
 	public int update(BoardVO vo)throws Exception;
 	//delete
 	public int delete(int boardNum)throws Exception;
+	//list
+	public List<BoardVO> BoardList() throws Exception;
+	
 }

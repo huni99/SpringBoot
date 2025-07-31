@@ -34,4 +34,8 @@
 
 
 	</delete>
+	<select id="BoardList" resultType="NoticeVO">
+		select * from NOTICE order by board_num DESC
+	
+	</select>
 </mapper>
