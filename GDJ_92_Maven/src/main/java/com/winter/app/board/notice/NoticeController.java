@@ -41,7 +41,24 @@ public class NoticeController {
 	@GetMapping("detail")
 	public void detail(NoticeVO noticeVO,Model model)throws Exception{
 		
-		NoticeVO noticeVo = (NoticeVO)noticeService.detail(noticeVO);
-		model.addAttribute("detail",noticeVo);
+		BoardVO boardVO = noticeService.detail(noticeVO);
+		model.addAttribute("detail",boardVO);
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
