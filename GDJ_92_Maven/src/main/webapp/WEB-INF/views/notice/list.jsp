@@ -42,9 +42,11 @@
 								</c:forEach>
 							
 							</tbody>             	
-                    	
-                    	
                     	</table>
+                    	<div>
+                    		<a class="btn btn-secondary" href="/notice/add">글쓰기</a>
+                    	
+                    	</div>
                     </div>
                 </div>
 			</div>

@@ -23,11 +23,11 @@
 	<update id="update" parameterType="NoticeVO">
 		UPDATE NOTICE
 		SET
-		BOARD_TITLE=#{boardTitle} , BOARD_CONTENTS= #{boardWriter},
+		BOARD_TITLE=#{boardTitle} , BOARD_CONTENTS= #{boardContents},
 		BOARD_WRITER=#{boardWriter}
-		WHERE BOARD_NUM = 3
+		WHERE BOARD_NUM = #{boardNum}
 	</update>
-	<delete id="delete" parameterType="_int">
+	<delete id="delete" parameterType="NoticeVO">
 		DELETE FROM NOTICE
 		WHERE
 		BOARD_NUM=#{boardNum}

@@ -7,18 +7,35 @@ import org.springframework.stereotype.Service;
 
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
+
 @Service
-public class NoticeService implements BoardService{
+public class NoticeService implements BoardService {
 	@Autowired
 	private NoticeDAO noticeDAO;
-	
+
 	@Override
 	public List<BoardVO> list() throws Exception {
 		return noticeDAO.BoardList();
 	}
-   @Override
-   public BoardVO detail(BoardVO boardVo) throws Exception {
-	// TODO Auto-generated method stub
-	return noticeDAO.detail(boardVo);
-}
+
+	@Override
+	public BoardVO detail(BoardVO boardVo) throws Exception {
+		// TODO Auto-generated method stub
+		return noticeDAO.detail(boardVo);
+
+	}
+
+	@Override
+	public int insert(BoardVO boardVO) throws Exception {
+		return noticeDAO.insert(boardVO);
+	}
+	@Override
+	public int update(BoardVO boardVO) throws Exception {
+		return noticeDAO.update(boardVO);
+	}
+	@Override
+	public int delete(BoardVO boardVO) throws Exception {
+		
+		return noticeDAO.delete(boardVO);
+	}
 }
