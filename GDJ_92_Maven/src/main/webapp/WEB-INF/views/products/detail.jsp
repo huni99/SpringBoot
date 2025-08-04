@@ -16,13 +16,14 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<div class="container text-center border border-primary w-75 p-3" >
+					<div class="container text-center border border-primary w-75 p-3" style="height:600px" >
 						<div class="row border-bottom border-dark fs-2"style="font-size:20px">
 							<div class="col-sm-4"style="text-align: start;">product_num</div>
 							<div class="col-sm-4">
 								<div>${detail.productNum }</div>
 							</div>
 						</div>
+
 						<div class="row border-bottom border-dark" style="font-size:20px">
 							<div class="col-sm-4 "style="text-align: start;">product_name</div>
 							<div class="col-sm-4">
