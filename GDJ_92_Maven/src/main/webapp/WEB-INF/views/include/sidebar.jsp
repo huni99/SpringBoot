@@ -44,6 +44,9 @@
 =======
                         <a class="collapse-item" href="/products/list">Products</a>
                         <a class="collapse-item" href="/qna/list">Qna</a>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                     </div>
                 </div>
