@@ -16,23 +16,28 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 @Slf4j
 class NoticeDAOTest {
-	
+
 	@Autowired
 	private NoticeDAO noticeDao;
-	
-	
-//	@Test
-//	void insertTest() throws Exception{
-//		NoticeVO noticeVO =new NoticeVO();
-//		noticeVO.setBoardContents("content3");
-//		noticeVO.setBoardTitle("title3");
-//		noticeVO.setBoardWriter("writer3");
-//		int result = noticeDao.insert(noticeVO);
-//		
-//		
-//		//단정문 
+
+	@Test
+	void insertTest() throws Exception {
+		for (int i = 0; i < 105; i++) {
+			NoticeVO noticeVO = new NoticeVO();
+			noticeVO.setBoardContents("content"+i);
+			noticeVO.setBoardTitle("title"+i);
+			noticeVO.setBoardWriter("writer"+i);
+		
+			int result = noticeDao.insert(noticeVO);
+			if(i%10 == 0) {
+				Thread.sleep(500);
+			}
+		}
+		
+
+		// 단정문
 //		assertEquals(1, result);
-//	}
+	}
 //	@Test
 //	void updateTest() throws Exception{
 //		NoticeVO noticeVO =new NoticeVO();

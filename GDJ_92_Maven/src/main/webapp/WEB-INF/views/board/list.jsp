@@ -16,8 +16,9 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
                 <div class="container-fluid">
                 	<!-- page contents 내용 -->
-                    <h1>Notice List</h1>
+                	
                     <div class="row col-md-8 offset-md-2">
+                    <h1>${board}</h1>
                     
                     	<table class="table table-striped">
 							<thead>
@@ -34,7 +35,11 @@
 								<c:forEach var="vo" items="${list}">
 								<tr>
 									<td>${vo.boardNum}</td>
-									<td><a href="./detail?boardNum=${vo.boardNum}">${vo.boardTitle}</a></td>
+									<td>
+									<c:catch><c:forEach begin="1" end="${vo.boardDepth}">&nbsp;&nbsp;&nbsp;</c:forEach>
+									<c:if test="${vo.boardDepth ne '0' }">↪</c:if></c:catch>
+									<a href="./detail?boardNum=${vo.boardNum}">${vo.boardTitle}</a>
+									</td>
 									<td>${vo.boardWriter}</td>
 									<td>${vo.boardDate}</td>
 									<td>${vo.boardHit}</td> 

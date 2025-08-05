@@ -17,6 +17,7 @@
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
 					<div class="row col-md-4 offset-md-4 ">
+					<h1>${board}</h1>
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -45,8 +46,10 @@
 								<input type="hidden" name="boardNum" value="${detail.boardNum }">
 							</form>
 							<button class="btn btn-primary action" data-kind="u">Update</button>						
-							<button class="btn btn-danger action" data-kind="d">Delete</button>						
+							<button class="btn btn-danger action" data-kind="d">Delete</button>		
+							<c:if test="${board ne 'notice'}">				
 							<button class="btn btn-success action" data-kind="r">Reply</button>						
+							</c:if>
 						</div>
 					</div>
 

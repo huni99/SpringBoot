@@ -3,9 +3,11 @@ package com.winter.app.board.notice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,6 +20,12 @@ import com.winter.app.board.BoardVO;
 public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Value("${board.notice}")
+	private String name;
+	
+	
+	
 	@Autowired
 	private NoticeDAO noticeDao;
 //	@GetMapping("add")
@@ -29,6 +37,10 @@ public class NoticeController {
 //		int result = noticeDao.insert(noticeVO);
 //		
 //	}
+	@ModelAttribute("board")
+	public String getBoard() {
+		return name;
+	}
 	@GetMapping("list")
 	public String list(Model model)throws Exception{
 		//Model- > requset랑 life cycle이 유사하고 스프링에서 jsp까지 데이터를 전달할 때 사용
@@ -39,10 +51,11 @@ public class NoticeController {
 	}
 	
 	@GetMapping("detail")
-	public void detail(NoticeVO noticeVO,Model model)throws Exception{
+	public String detail(NoticeVO noticeVO,Model model)throws Exception{
 		
 		BoardVO boardVO = noticeService.detail(noticeVO);
 		model.addAttribute("detail",boardVO);
+		return "/board/detail";
 		
 	}
 	@GetMapping("add")

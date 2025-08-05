@@ -3,9 +3,11 @@ package com.winter.app.qna;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,8 +17,14 @@ import com.winter.app.board.BoardVO;
 @RequestMapping(value="/qna/*")
 @Controller
 public class QnaController {
+	@Value("${board.qna}")
+	private String name;
 	@Autowired
 	QnaService qnaService;
+	@ModelAttribute("board")
+	public String getBoard() {
+		return name;
+	}
 	@GetMapping("list")
 	public String list(Model model)throws Exception {
 		List<BoardVO> list= qnaService.list();
