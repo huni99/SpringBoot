@@ -17,6 +17,7 @@
 				<div class="container-fluid justify-content-center container-md">
 					<!-- page contents 내용 -->
 					<form method="post">
+						<input type="hidden" value="${detail.boardNum} }">
 						<div class="mb-3">
 							<label for="writer" class="form-label">
 								Writer

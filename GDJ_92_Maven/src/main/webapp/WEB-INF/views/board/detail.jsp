@@ -46,6 +46,7 @@
 							</form>
 							<button class="btn btn-primary action" data-kind="u">Update</button>						
 							<button class="btn btn-danger action" data-kind="d">Delete</button>						
+							<button class="btn btn-success action" data-kind="r">Reply</button>						
 						</div>
 					</div>
 

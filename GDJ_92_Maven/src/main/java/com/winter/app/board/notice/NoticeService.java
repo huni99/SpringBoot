@@ -15,7 +15,7 @@ public class NoticeService implements BoardService {
 
 	@Override
 	public List<BoardVO> list() throws Exception {
-		return noticeDAO.BoardList();
+		return noticeDAO.list();
 	}
 
 	@Override

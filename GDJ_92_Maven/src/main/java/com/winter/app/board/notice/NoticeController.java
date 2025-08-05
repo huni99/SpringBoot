@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.winter.app.board.BoardVO;
 
-import jakarta.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -35,7 +34,7 @@ public class NoticeController {
 		//Model- > requset랑 life cycle이 유사하고 스프링에서 jsp까지 데이터를 전달할 때 사용
 		List<BoardVO> list= noticeService.list();
 		model.addAttribute("list", list);
-		return "notice/list";
+		return "board/list";
 		
 	}
 	
@@ -47,14 +46,14 @@ public class NoticeController {
 		
 	}
 	@GetMapping("add")
-	public void add() {
-		
+	public String add() {
+		return "/board/add";
 	}
 	@PostMapping("add")
 	public String add(NoticeVO noticeVO,Model model)throws Exception {
 		
 		int result =noticeService.insert(noticeVO);
-		return "redirect:/notice/list";
+		return "redirect:/board/list";
 	}
 	
 	@GetMapping("update")
@@ -62,7 +61,7 @@ public class NoticeController {
 		BoardVO boardVO = noticeService.detail(noticeVO);
 		model.addAttribute("boardVO", boardVO);
 		
-		return"notice/add";
+		return"board/add";
 	}
 	@PostMapping("update")
 	public String update(NoticeVO noticeVO,Model model)throws Exception {

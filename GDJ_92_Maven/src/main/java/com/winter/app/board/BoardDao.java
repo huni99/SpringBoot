@@ -15,6 +15,6 @@ public interface BoardDao {
 	//delete
 	public int delete(BoardVO vo)throws Exception;
 	//list
-	public List<BoardVO> BoardList() throws Exception;
+	public List<BoardVO> list() throws Exception;
 	
 }

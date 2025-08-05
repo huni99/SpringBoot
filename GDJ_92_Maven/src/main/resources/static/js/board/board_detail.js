@@ -12,8 +12,11 @@ for(el of btn_cls){
 			frm.setAttribute("method","post");
 			frm.setAttribute("action","/notice/delete");
 			frm.submit();
-		}else{
+		}else if(kind=='u'){
 			frm.setAttribute("action","/notice/update");
+			frm.submit();
+		}else if(kind=='r'){
+			frm.setAttribute("action","/qna/reply");
 			frm.submit();
 		}
 		
