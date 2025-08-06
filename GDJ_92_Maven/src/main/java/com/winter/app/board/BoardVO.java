@@ -2,11 +2,9 @@ package com.winter.app.board;
 
 import java.time.LocalDate;
 
-import org.springframework.stereotype.Repository;
 
 import lombok.Data;
 @Data
-@Repository
 public class BoardVO {
 	private Long boardNum;
 	private String boardTitle;
