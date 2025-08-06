@@ -52,7 +52,7 @@ public class NoticeService implements BoardService {
 		boardFileVO.setSaveName(fileName);
 		boardFileVO.setBoardNum(boardVO.getBoardNum());
 		int result = noticeDAO.insertFile(boardFileVO);
-		return 0; 
+		return result; 
 	}
 	@Override
 	public int update(BoardVO boardVO) throws Exception {

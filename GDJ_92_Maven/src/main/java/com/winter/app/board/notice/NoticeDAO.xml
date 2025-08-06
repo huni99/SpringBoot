@@ -5,9 +5,27 @@
 
 <!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
 <mapper namespace="com.winter.app.board.notice.NoticeDAO">
-	<select id="detail" parameterType="NoticeVO" resultType="NoticeVO">
-		SELECT * FROM NOTICE 
-		WHERE BOARD_NUM=#{boardNum}
+	<resultMap type="NoticeVO" id="detailResult">
+		<id property="boardNum" column="board_num"/>
+		<result property="boardTitle" column="board_title"/>
+		<result property="boardContents" column="BOARD_CONTENTS"/>
+		<result property="boardWriter" column="BOARD_WRITER"/>
+		<result property="boardDate" column="BOARD_DATE"/>
+		<result property="boardHit" column="BOARD_HIT"/>
+		<association property="boardFileVO" javaType="BoardFileVO">
+		
+			<id property="fileNum" column="file_num" />
+			<result property="oriName" column="ori_name"/>
+			<result property="saveName" column="save_name"/>
+			<result property="boardNum" column="board_num"/>
+		
+		</association>
+	</resultMap>
+	<select id="detail" parameterType="NoticeVO" resultMap="detailResult">
+		SELECT * FROM NOTICE n
+		LEFT OUTER JOIN NOTICEFILES f ON n.board_num=f.board_num 
+		WHERE n.BOARD_NUM=#{boardNum}
+		
 	</select>
 	
 	<select id="totalCount" resultType="long">
@@ -34,8 +52,6 @@
 		DELETE FROM NOTICE
 		WHERE
 		BOARD_NUM=#{boardNum}
-
-
 	</delete>
 	<select id="list" resultType="NoticeVO" parameterType="Pager">
 		select * from NOTICE order by board_num DESC
@@ -44,6 +60,5 @@
 	<insert id= "insertFile" parameterType="BoardFileVO">
 		INSERT INTO NOTICEFILES
 		VALUES(null, #{oriName},#{saveName},#{boardNum})
-		
 	</insert>
 </mapper>

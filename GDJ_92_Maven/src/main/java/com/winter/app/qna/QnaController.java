@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardVO;
 import com.winter.app.commons.Pager;
@@ -38,8 +39,8 @@ public class QnaController {
 		return "board/add";
 	}
 	@PostMapping("add")
-	public String insert(QnaVO qnaVO)throws Exception{
-		int result = qnaService.insert(qnaVO);
+	public String insert(QnaVO qnaVO, MultipartFile attaches)throws Exception{
+		int result = qnaService.insert(qnaVO,attaches);
 		return "redirect:./list";
 	}
 	@GetMapping("detail")

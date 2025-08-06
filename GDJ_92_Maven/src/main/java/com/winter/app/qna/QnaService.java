@@ -3,62 +3,78 @@ package com.winter.app.qna;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
+import com.winter.app.commons.FileManager;
 import com.winter.app.commons.Pager;
-
 
 @Service
 public class QnaService implements BoardService {
 	@Autowired
 	QnaDAO qnaDao;
+	@Autowired
+	private FileManager fileManager;
+	@Value("${app.upload}")
+	private String upload;
+	@Value("${board.qna}")
+	private String board;
+	
+
 	@Override
 	public int delete(BoardVO boardVO) throws Exception {
 		return 0;
 	}
+
 	@Override
 	public BoardVO detail(BoardVO boardVO) throws Exception {
 		return qnaDao.detail(boardVO);
 	}
+
 	@Override
-	public int insert(BoardVO boardVO) throws Exception {
+	public int insert(BoardVO boardVO, MultipartFile attaches) throws Exception {
+
 		int result = qnaDao.insert(boardVO);
-		//ref값을 update
-		result=qnaDao.refUpdate(boardVO);
-		
+		// ref값을 update
+		result = qnaDao.refUpdate(boardVO);
+		// 1. File을 HDD에 저장
+
+		String fileName = fileManager.fileSave(upload + board, attaches);
+
+		// 2. 저장된 파일의 정보를 DB에 저장
+		BoardFileVO boardFileVO = new BoardFileVO();
+		boardFileVO.setOriName(attaches.getOriginalFilename());
+		boardFileVO.setSaveName(fileName);
+		boardFileVO.setBoardNum(boardVO.getBoardNum());
+		result = qnaDao.insertFile(boardFileVO);
+
 		return result;
 	}
+
 	@Override
 	public int update(BoardVO boardVO) throws Exception {
 		return 0;
 	}
+
 	@Override
 	public List<BoardVO> list(Pager pager) throws Exception {
 		Long totalCount = qnaDao.totalCount();
 		pager.makeNum(totalCount);
 		return qnaDao.list(pager);
 	}
-	
-	public int reply(QnaVO qnaVO)throws Exception{
-		QnaVO parent = (QnaVO)qnaDao.detail(qnaVO);
-		int result=qnaDao.replyUpdate(parent);
+
+	public int reply(QnaVO qnaVO) throws Exception {
+		QnaVO parent = (QnaVO) qnaDao.detail(qnaVO);
+		int result = qnaDao.replyUpdate(parent);
 		qnaVO.setBoardRef(parent.getBoardRef());
-		qnaVO.setBoardDepth(parent.getBoardDepth()+1);
-		qnaVO.setBoardStep(parent.getBoardStep()+1);
-		result= qnaDao.replyInsert(qnaVO);
+		qnaVO.setBoardDepth(parent.getBoardDepth() + 1);
+		qnaVO.setBoardStep(parent.getBoardStep() + 1);
+		result = qnaDao.replyInsert(qnaVO);
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
