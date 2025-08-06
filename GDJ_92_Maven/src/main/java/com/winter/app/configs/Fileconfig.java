@@ -10,7 +10,7 @@ public class Fileconfig implements WebMvcConfigurer {
 	@Value("${app.upload}")
 	private String path; // D:/upload/
 	@Value("${app.url}")
-	private String url; // /files/
+	private String url; // /files/**
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -72,9 +72,6 @@ public class NoticeController {
 	}
 	@PostMapping("add")
 	public String add(NoticeVO noticeVO,MultipartFile attaches)throws Exception {
-		log.info("{}",attaches.getContentType());
-		log.info("{}",attaches.getOriginalFilename());
-		log.info("{}",attaches.getSize());
 		int result =noticeService.insert(noticeVO,attaches);
 		return "redirect:./list";
 	}
