@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,46 +14,63 @@
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content">
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
-                <div class="container-fluid">
-                	<!-- page contents 내용 -->
-                	
-                    <div class="row col-md-8 offset-md-2">
-                    <h1>${board}</h1>
-                    
-                    	<table class="table table-striped">
+				<div class="container-fluid">
+					<!-- page contents 내용 -->
+
+					<div class="row col-md-8 offset-md-2">
+						<h1>${board}</h1>
+
+						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Num</th>	
-									<th>Title</th>	
-									<th>Writer</th>	
-									<th>Date</th>	
-									<th>Hit</th>	
+									<th>Num</th>
+									<th>Title</th>
+									<th>Writer</th>
+									<th>Date</th>
+									<th>Hit</th>
 								</tr>
-							
-							</thead>       
+
+							</thead>
 							<tbody>
 								<c:forEach var="vo" items="${list}">
-								<tr>
-									<td>${vo.boardNum}</td>
-									<td>
-									<c:catch><c:forEach begin="1" end="${vo.boardDepth}">&nbsp;&nbsp;&nbsp;</c:forEach>
-									<c:if test="${vo.boardDepth ne '0' }">↪</c:if></c:catch>
-									<a href="./detail?boardNum=${vo.boardNum}">${vo.boardTitle}</a>
-									</td>
-									<td>${vo.boardWriter}</td>
-									<td>${vo.boardDate}</td>
-									<td>${vo.boardHit}</td> 
-								</tr>
+									<tr>
+										<td>${vo.boardNum}</td>
+										<td><c:catch>
+												<c:forEach begin="1" end="${vo.boardDepth}">&nbsp;&nbsp;&nbsp;</c:forEach>
+												<c:if test="${vo.boardDepth ne '0' }">↪</c:if>
+											</c:catch> <a href="./detail?boardNum=${vo.boardNum}">${vo.boardTitle}</a>
+										</td>
+										<td>${vo.boardWriter}</td>
+										<td>${vo.boardDate}</td>
+										<td>${vo.boardHit}</td>
+									</tr>
 								</c:forEach>
-							
-							</tbody>             	
-                    	</table>
-                    	<div>
-                    		<a class="btn btn-secondary" href="./add">글쓰기</a>
-                    	
-                    	</div>
-                    </div>
-                </div>
+
+							</tbody>
+						</table>
+						<div>
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<li class="page-item"><a class="page-link" href="./list?pageNum=${pager.startNum-1}"
+										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+									</a></li>
+									
+									<c:forEach begin="${pager.startNum}" end="${pager.endNum }" var="i">
+									<li class="page-item"><a class="page-link" href="./list?pageNum=${i} ">${i} </a></li>
+									</c:forEach>
+									<li class="page-item"><a class="page-link" href="./list?pageNum=${pager.endNum+1}"
+										aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+									</a></li>
+								</ul>
+							</nav>
+
+						</div>
+						<div>
+							<a class="btn btn-secondary" href="./add">글쓰기</a>
+
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- END Content  -->
 			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>

@@ -3,6 +3,8 @@ package com.winter.app.board;
 
 import java.util.List;
 
+import com.winter.app.commons.Pager;
+
 
 public interface BoardDao {
 	
@@ -15,6 +17,9 @@ public interface BoardDao {
 	//delete
 	public int delete(BoardVO vo)throws Exception;
 	//list
-	public List<BoardVO> list() throws Exception;
-	
+	public List<BoardVO> list(Pager pager) throws Exception;
+	//totalCount
+	public Long totalCount() throws Exception;
+	//insertFile
+	public int insertFile(BoardFileVO boardFileVO)throws Exception;
 }

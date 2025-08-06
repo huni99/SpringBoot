@@ -16,7 +16,7 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid justify-content-center container-md">
 					<!-- page contents 내용 -->
-					<form method="post">
+					<form method="post" enctype="multipart/form-data">
 						<input type="hidden" value="${detail.boardNum} }">
 						<div class="mb-3">
 							<label for="writer" class="form-label">
@@ -39,7 +39,12 @@
 								<textarea  class="form-control"id="Contents" cols="5" rows="10" name="boardContents"
 								>${boardVO.boardContents}</textarea>
 						</div>
-
+						<div class="mb-3">
+							<label for="Title" class="form-label">
+								File
+							</label> 
+								<input type="file" class="form-control" id="Attaches" name="attaches">
+						</div>
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 				</div>

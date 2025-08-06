@@ -5,9 +5,10 @@
 
 <!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
 <mapper namespace="com.winter.app.qna.QnaDAO">
-	<select id="list" resultType='QnaVO'>
+	<select id="list" resultType='QnaVO' parameterType="Pager">
 		SELECT * FROM QNA 
 		ORDER BY board_ref DESC, board_step ASC 
+		limit #{startIndex}, #{endIndex}
 	
 	</select>
 	<insert id="insert" parameterType="QnaVO" useGeneratedKeys="true" keyProperty="boardNum">
@@ -39,5 +40,9 @@
 		
 		
 	</insert>
+	<select id="totalCount" parameterType="QnaVO">
+		SELECT COUNT(board_num) FROM QNA
+	
+	</select>
 	
 </mapper>

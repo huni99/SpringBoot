@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardVO;
+import com.winter.app.commons.Pager;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 
 @Controller
 @RequestMapping(value="/notice/*")
+@Slf4j
 public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
@@ -42,9 +47,12 @@ public class NoticeController {
 		return name;
 	}
 	@GetMapping("list")
-	public String list(Model model)throws Exception{
+	public String list(Pager pager, Model model)throws Exception{
 		//Model- > requset랑 life cycle이 유사하고 스프링에서 jsp까지 데이터를 전달할 때 사용
-		List<BoardVO> list= noticeService.list();
+		
+		
+		List<BoardVO> list= noticeService.list(pager);
+		model.addAttribute("peger",pager);
 		model.addAttribute("list", list);
 		return "board/list";
 		
@@ -63,10 +71,12 @@ public class NoticeController {
 		return "/board/add";
 	}
 	@PostMapping("add")
-	public String add(NoticeVO noticeVO,Model model)throws Exception {
-		
-		int result =noticeService.insert(noticeVO);
-		return "redirect:/board/list";
+	public String add(NoticeVO noticeVO,MultipartFile attaches)throws Exception {
+		log.info("{}",attaches.getContentType());
+		log.info("{}",attaches.getOriginalFilename());
+		log.info("{}",attaches.getSize());
+		int result =noticeService.insert(noticeVO,attaches);
+		return "redirect:./list";
 	}
 	
 	@GetMapping("update")
