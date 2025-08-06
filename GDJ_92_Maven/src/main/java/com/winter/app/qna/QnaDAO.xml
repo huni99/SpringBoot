@@ -29,7 +29,7 @@
 	<update id="replyUpdate" parameterType="QnaVO">
 		UPDATE QNA SET BOARD_STEP= BOARD_STEP +1
 		WHERE BOARD_REF=#{boardRef} AND BOARD_STEP > #{boardStep}
-	
+
 	</update>
 	<insert id="replyInsert" parameterType="QnaVO">
 		INSERT INTO QNA (BOARD_NUM ,BOARD_TITLE,
