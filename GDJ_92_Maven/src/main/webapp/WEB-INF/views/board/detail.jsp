@@ -38,9 +38,10 @@
 									<td>${detail.boardWriter}</td>
 									<td>${detail.boardDate}</td>
 									<td>${detail.boardHit}</td>
-									<td><a href="/files/${board}/${detail.boardFileVO.saveName}">${detail.boardFileVO.oriName}</a></td>
-									<td>${detail.boardFileVO.saveName}</td>
-									
+									<c:forEach var="f" items="${ detail.boardFileVOs}">
+									<td><a href="/files/${board}/${f.saveName}">${f.oriName}</a></td>
+									<td>${f.saveName}</td>
+									</c:forEach>
 
 								</tr>
 							</tbody>

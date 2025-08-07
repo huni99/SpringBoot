@@ -22,4 +22,6 @@ public interface BoardDao {
 	public Long totalCount(Pager pager) throws Exception;
 	//insertFile
 	public int insertFile(BoardFileVO boardFileVO)throws Exception;
+	//filedelete
+	public int fileDelete(BoardVO boardVO)throws Exception;
 }

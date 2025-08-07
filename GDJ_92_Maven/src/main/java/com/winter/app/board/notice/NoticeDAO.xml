@@ -12,14 +12,12 @@
 		<result property="boardWriter" column="BOARD_WRITER" />
 		<result property="boardDate" column="BOARD_DATE" />
 		<result property="boardHit" column="BOARD_HIT" />
-		<association property="boardFileVO" javaType="BoardFileVO">
-
+		<collection property="boardFileVOs" javaType="java.util.List" ofType="boardFileVO">
 			<id property="fileNum" column="file_num" />
 			<result property="oriName" column="ori_name" />
 			<result property="saveName" column="save_name" />
-			<result property="boardNum" column="board_num" />
-
-		</association>
+			
+		</collection>
 	</resultMap>
 	<sql id="search">
 		<where>
@@ -86,4 +84,13 @@
 		INSERT INTO NOTICEFILES
 		VALUES(null, #{oriName},#{saveName},#{boardNum})
 	</insert>
+	
+	<delete id="fileDelete" parameterType="NoticeVO">
+		DELETE FROM NOTICEFILES WHERE board_num=#{boardNum}
+	</delete>
+	
+	
+	
+	
+	
 </mapper>

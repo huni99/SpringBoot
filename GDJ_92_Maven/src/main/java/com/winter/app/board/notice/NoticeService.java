@@ -40,22 +40,26 @@ public class NoticeService implements BoardService {
 	}
 	
 	@Override
-	public int insert(BoardVO boardVO,MultipartFile attaches) throws Exception {
+	public int insert(BoardVO boardVO,MultipartFile []attaches) throws Exception {
 		int result =noticeDAO.insert(boardVO);
 		//1. File을 HDD에 저장
-		if(attaches == null || attaches.isEmpty()) {
-			 return result;
-		}
 		
-		String fileName = fileManager.fileSave(upload+board, attaches);
+		for(MultipartFile m :attaches) {
+			if(m == null || m.isEmpty()) {
+				continue;
+			}
+			
+		
+		
+		String fileName = fileManager.fileSave(upload+board, m);
 		
 		//2. 저장된 파일의 정보를 DB에 저장
 		BoardFileVO boardFileVO=new BoardFileVO();
-		boardFileVO.setOriName(attaches.getOriginalFilename());
+		boardFileVO.setOriName(m.getOriginalFilename());
 		boardFileVO.setSaveName(fileName);
 		boardFileVO.setBoardNum(boardVO.getBoardNum());
 		result = noticeDAO.insertFile(boardFileVO);
-		
+		}
 		return result; 
 	}
 	@Override
@@ -64,7 +68,11 @@ public class NoticeService implements BoardService {
 	}
 	@Override
 	public int delete(BoardVO boardVO) throws Exception {
-		
+		boardVO = noticeDAO.detail(boardVO);
+		for(BoardFileVO vo : boardVO.getBoardFileVOs()) {
+			fileManager.fileDelete(upload+board, vo.getSaveName());
+		int result = noticeDAO.fileDelete(boardVO);
+		}
 		return noticeDAO.delete(boardVO);
 	}
 }
