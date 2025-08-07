@@ -26,7 +26,7 @@ public class NoticeService implements BoardService {
 	private String board;
 	@Override
 	public List<BoardVO> list(Pager pager) throws Exception {
-		Long totalCount = noticeDAO.totalCount();
+		Long totalCount = noticeDAO.totalCount(pager);
 		
 		pager.makeNum(totalCount);
 		return noticeDAO.list(pager);
@@ -41,8 +41,11 @@ public class NoticeService implements BoardService {
 	
 	@Override
 	public int insert(BoardVO boardVO,MultipartFile attaches) throws Exception {
-		noticeDAO.insert(boardVO);
+		int result =noticeDAO.insert(boardVO);
 		//1. File을 HDD에 저장
+		if(attaches == null || attaches.isEmpty()) {
+			 return result;
+		}
 		
 		String fileName = fileManager.fileSave(upload+board, attaches);
 		
@@ -51,7 +54,8 @@ public class NoticeService implements BoardService {
 		boardFileVO.setOriName(attaches.getOriginalFilename());
 		boardFileVO.setSaveName(fileName);
 		boardFileVO.setBoardNum(boardVO.getBoardNum());
-		int result = noticeDAO.insertFile(boardFileVO);
+		result = noticeDAO.insertFile(boardFileVO);
+		
 		return result; 
 	}
 	@Override

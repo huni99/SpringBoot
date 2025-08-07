@@ -19,7 +19,7 @@ public interface BoardDao {
 	//list
 	public List<BoardVO> list(Pager pager) throws Exception;
 	//totalCount
-	public Long totalCount() throws Exception;
+	public Long totalCount(Pager pager) throws Exception;
 	//insertFile
 	public int insertFile(BoardFileVO boardFileVO)throws Exception;
 }
