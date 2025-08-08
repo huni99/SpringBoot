@@ -46,17 +46,26 @@ result.addEventListener('click',(e)=>{
 deleteFile.forEach((f)=>{
 	f.addEventListener('click',(e)=>{
 		//fetch, axios
+		let flag= confirm("삭제하겠음?");
+		if(!flag){
+			return;
+		}
 		let params = new URLSearchParams();
-		params.append("fileNum",2);
+		params.append("fileNum",f.getAttribute("data-file-num"));
+		
 		fetch("./fileDelete",{
 			method:"post",
 			body:params
 			})			
-			.then(r=>r.json())
+			.then(r=>r.text())
 			.then(r=>{
-				console.log(r);
-			})
+				if(r.trim()==1){
+					count--;
+					f.remove();
+				}else{
+					alert("삭제 실패");
+				}
+		})
 	})
-	
 })
 

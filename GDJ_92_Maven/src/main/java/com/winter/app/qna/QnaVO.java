@@ -4,6 +4,7 @@ import com.winter.app.board.BoardVO;
 
 import lombok.Data;
 
+
 @Data
 public class QnaVO extends BoardVO {
 	private Long boardRef;

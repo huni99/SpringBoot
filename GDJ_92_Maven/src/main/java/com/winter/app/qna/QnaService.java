@@ -23,11 +23,11 @@ public class QnaService implements BoardService {
 	private String upload;
 	@Value("${board.qna}")
 	private String board;
-	
 
 	@Override
 	public int delete(BoardVO boardVO) throws Exception {
-		return 0;
+		return 	qnaDao.delete(boardVO);
+		
 	}
 
 	@Override
@@ -36,28 +36,49 @@ public class QnaService implements BoardService {
 	}
 
 	@Override
-	public int insert(BoardVO boardVO, MultipartFile attaches) throws Exception {
+	public int insert(BoardVO boardVO, MultipartFile[] attaches) throws Exception {
 
 		int result = qnaDao.insert(boardVO);
 		// ref값을 update
 		result = qnaDao.refUpdate(boardVO);
 		// 1. File을 HDD에 저장
+		if (attaches == null) {
+			return result;
+		}
+		for (MultipartFile f : attaches) {
 
-		String fileName = fileManager.fileSave(upload + board, attaches);
+			String fileName = fileManager.fileSave(upload + board, f);
 
-		// 2. 저장된 파일의 정보를 DB에 저장
-		BoardFileVO boardFileVO = new BoardFileVO();
-		boardFileVO.setOriName(attaches.getOriginalFilename());
-		boardFileVO.setSaveName(fileName);
-		boardFileVO.setBoardNum(boardVO.getBoardNum());
-		result = qnaDao.insertFile(boardFileVO);
+			// 2. 저장된 파일의 정보를 DB에 저장
+			BoardFileVO boardFileVO = new BoardFileVO();
+			boardFileVO.setOriName(f.getOriginalFilename());
+			boardFileVO.setSaveName(fileName);
+			boardFileVO.setBoardNum(boardVO.getBoardNum());
+			result = qnaDao.insertFile(boardFileVO);
 
+		}
 		return result;
 	}
 
 	@Override
-	public int update(BoardVO boardVO) throws Exception {
-		return 0;
+	public int update(BoardVO boardVO, MultipartFile[] attaches) throws Exception {
+		int result = qnaDao.update(boardVO);
+		if (attaches == null) {
+			return result;
+		}
+
+		for (MultipartFile f : attaches) {
+			if (f == null || f.isEmpty())
+				continue;
+			String saveName = fileManager.fileSave(upload + board, f);
+			BoardFileVO boardFileVO = new BoardFileVO();
+			boardFileVO.setBoardNum(boardVO.getBoardNum());
+			boardFileVO.setOriName(f.getOriginalFilename());
+			boardFileVO.setSaveName(saveName);
+			result = qnaDao.insertFile(boardFileVO);
+
+		}
+		return result;
 	}
 
 	@Override
@@ -67,14 +88,37 @@ public class QnaService implements BoardService {
 		return qnaDao.list(pager);
 	}
 
-	public int reply(QnaVO qnaVO) throws Exception {
+	public int reply(QnaVO qnaVO, MultipartFile[] attaches) throws Exception {
 		QnaVO parent = (QnaVO) qnaDao.detail(qnaVO);
 		int result = qnaDao.replyUpdate(parent);
 		qnaVO.setBoardRef(parent.getBoardRef());
 		qnaVO.setBoardDepth(parent.getBoardDepth() + 1);
 		qnaVO.setBoardStep(parent.getBoardStep() + 1);
 		result = qnaDao.replyInsert(qnaVO);
+		for (MultipartFile f : attaches) {
+			if (f == null || f.isEmpty())
+				continue;
+			String saveName = fileManager.fileSave(upload + board, f);
+			BoardFileVO boardFileVO = new BoardFileVO();
+			boardFileVO.setBoardNum(qnaVO.getBoardNum());
+			boardFileVO.setOriName(f.getOriginalFilename());
+			boardFileVO.setSaveName(saveName);
+			result = qnaDao.insertFile(boardFileVO);
+
+		}
+
 		return result;
+	}
+
+	@Override
+	public int filedelete(BoardFileVO boardFileVO) throws Exception {
+		// 1. File 조회
+		boardFileVO = qnaDao.fileDetail(boardFileVO);
+		// 2. File 삭제
+		boolean result = fileManager.fileDelete(upload + board, boardFileVO.getSaveName());
+		// 3. DB 삭제
+		return qnaDao.fileDeleteOne(boardFileVO);
+
 	}
 
 }

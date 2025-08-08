@@ -45,7 +45,7 @@
 						</div>
 						<div>
 							<c:forEach var="f" items="${ boardVO.boardFileVOs}">
-								<button class="deleteFile" type="button"> ${f.oriName}</button>
+								<button class="deleteFile" data-file-num="${f.fileNum}" type="button"> ${f.oriName}</button>
 							</c:forEach>
 						</div>
 						<div id="result" data-file-count="${fn:length(boardVO.boardFileVOs)}"></div>

@@ -88,7 +88,15 @@
 	<delete id="fileDelete" parameterType="NoticeVO">
 		DELETE FROM NOTICEFILES WHERE board_num=#{boardNum}
 	</delete>
+	<select id="fileDetail" parameterType="BoardFileVO" resultType="BoardFileVO">
+		SELECT * FROM NOTICEFILES
+		WHERE file_num=#{fileNum}
+	</select>
+	<delete id="fileDeleteOne" parameterType="BoardFileVO">
+		DELETE FROM NOTICEFILES WHERE file_num=#{fileNum}
 	
+	
+	</delete>
 	
 	
 	

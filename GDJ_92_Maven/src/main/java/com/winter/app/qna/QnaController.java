@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardVO;
+import com.winter.app.board.notice.NoticeVO;
 import com.winter.app.commons.Pager;
 
 
@@ -39,7 +42,7 @@ public class QnaController {
 		return "board/add";
 	}
 	@PostMapping("add")
-	public String insert(QnaVO qnaVO, MultipartFile attaches)throws Exception{
+	public String insert(QnaVO qnaVO, MultipartFile[] attaches)throws Exception{
 		int result = qnaService.insert(qnaVO,attaches);
 		return "redirect:./list";
 	}
@@ -55,9 +58,53 @@ public class QnaController {
 		return "board/add";
 	}
 	@PostMapping("reply")
-	public String reply(QnaVO qnaVO,Model model ,Integer i)throws Exception{
-		qnaService.reply(qnaVO);
+	public String reply(QnaVO qnaVO,MultipartFile[] attaches)throws Exception{
+		qnaService.reply(qnaVO, attaches);
 		return "redirect:./list";
 	}
+	@GetMapping("update")
+	public String update(Model model,QnaVO qnaVO) throws Exception {
+		BoardVO boardVO = qnaService.detail(qnaVO);
+		model.addAttribute("boardVO", boardVO);
+		
+		return"board/add";
+	}
+	@PostMapping("update")
+	public String update(Model model, MultipartFile[] attaches, QnaVO qnaVO) throws Exception{
+		int result = qnaService.update(qnaVO, attaches);
+		String msg = "수정 실패";
+		
+		if(result>0) {
+			msg="수정 성공";
+		}
+		
+		String url="./detail?boardNum="+qnaVO.getBoardNum();
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		return "commons/result";   //"redirect:/notice/detail?boardNum="+noticeVO.getBoardNum();
+	}
+	@PostMapping("fileDelete")
+	@ResponseBody
+	public int fileDelete(Model model, BoardFileVO boardfileVO)throws Exception {
+		int result = qnaService.filedelete(boardfileVO);
+		return result;
+		
+	}
+	@PostMapping("delete")
+	public String delete(QnaVO qnaVO,Model model)throws Exception{
+		int result =qnaService.delete(qnaVO);
+		String msg = "삭제 실패";
+		String url ="./list";
+		if(result>0) {
+			msg="삭제 성공";
+		}
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "commons/result";
+	}
+	
+
+	
 	
 }

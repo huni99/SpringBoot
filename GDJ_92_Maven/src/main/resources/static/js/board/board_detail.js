@@ -10,10 +10,10 @@ for(el of btn_cls){
 		let kind = k.getAttribute("data-kind");
 		if(kind=='d'){
 			frm.setAttribute("method","post");
-			frm.setAttribute("action","/notice/delete");
+			frm.setAttribute("action","./delete");
 			frm.submit();
 		}else if(kind=='u'){
-			frm.setAttribute("action","/notice/update");
+			frm.setAttribute("action","./update");
 			frm.submit();
 		}else if(kind=='r'){
 			frm.setAttribute("action","/qna/reply");
