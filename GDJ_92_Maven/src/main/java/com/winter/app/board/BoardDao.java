@@ -1,6 +1,10 @@
+
 package com.winter.app.board;
 
-import com.winter.app.board.notice.NoticeVO;
+import java.util.List;
+
+import com.winter.app.commons.Pager;
+
 
 public interface BoardDao {
 	
@@ -11,5 +15,17 @@ public interface BoardDao {
 	//update
 	public int update(BoardVO vo)throws Exception;
 	//delete
-	public int delete(int boardNum)throws Exception;
+	public int delete(BoardVO vo)throws Exception;
+	//list
+	public List<BoardVO> list(Pager pager) throws Exception;
+	//totalCount
+	public Long totalCount(Pager pager) throws Exception;
+	//insertFile
+	public int insertFile(BoardFileVO boardFileVO)throws Exception;
+	//filedelete
+	public int fileDelete(BoardVO boardVO)throws Exception;
+	
+	
+	public BoardFileVO fileDetail(BoardFileVO boardFileVO)throws Exception;
+	public int fileDeleteOne(BoardFileVO boardFileVO)throws Exception;
 }

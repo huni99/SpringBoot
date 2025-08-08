@@ -5,16 +5,58 @@
 
 <!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
 <mapper namespace="com.winter.app.board.notice.NoticeDAO">
-	<select id="detail" parameterType="NoticeVO" resultType="NoticeVO">
-		SELECT * FROM NOTICE 
-		WHERE BOARD_NUM=#{boardNum}
+	<resultMap type="NoticeVO" id="detailResult">
+		<id property="boardNum" column="board_num" />
+		<result property="boardTitle" column="board_title" />
+		<result property="boardContents" column="BOARD_CONTENTS" />
+		<result property="boardWriter" column="BOARD_WRITER" />
+		<result property="boardDate" column="BOARD_DATE" />
+		<result property="boardHit" column="BOARD_HIT" />
+		<collection property="boardFileVOs" javaType="java.util.List" ofType="boardFileVO">
+			<id property="fileNum" column="file_num" />
+			<result property="oriName" column="ori_name" />
+			<result property="saveName" column="save_name" />
+			
+		</collection>
+	</resultMap>
+	<sql id="search">
+		<where>
+		<choose>
+			<when test="kind=='k1'">
+				BOARD_TITLE			
+			</when>
+			<when test="kind=='k2'">
+				BOARD_CONTENTS
+			</when>
+			<otherwise>
+				BOARD_WRITER
+			</otherwise>
+		</choose>		
+		LIKE CONCAT('%',#{keyword},'%')
+		</where>
+	</sql>
+
+
+	<select id="detail" parameterType="NoticeVO"
+		resultMap="detailResult">
+		SELECT * FROM NOTICE n
+		LEFT OUTER JOIN NOTICEFILES f ON
+		n.board_num=f.board_num
+		WHERE n.BOARD_NUM=#{boardNum}
+
+	</select>
+
+	<select id="totalCount" resultType="long" parameterType="Pager">
+		SELECT COUNT(board_num) FROM notice
+		<include refid="search" />
 	</select>
 
 	<!-- ID는 DAO의 메서드명과 동일하게 작성 -->
 
-	<insert id="insert"
-		parameterType="com.winter.app.board.notice.NoticeVO">
-		INSERT INTO NOTICE (BOARD_NUM ,BOARD_TITLE,
+	<insert id="insert" parameterType="NoticeVO"
+		useGeneratedKeys="true" keyProperty="boardNum">
+		INSERT INTO NOTICE (BOARD_NUM
+		,BOARD_TITLE,
 		BOARD_CONTENTS, BOARD_WRITER ,
 		BOARD_DATE, BOARD_HIT)
 		VALUES
@@ -23,15 +65,40 @@
 	<update id="update" parameterType="NoticeVO">
 		UPDATE NOTICE
 		SET
-		BOARD_TITLE=#{boardTitle} , BOARD_CONTENTS= #{boardWriter},
+		BOARD_TITLE=#{boardTitle} , BOARD_CONTENTS= #{boardContents},
 		BOARD_WRITER=#{boardWriter}
-		WHERE BOARD_NUM = 3
+		WHERE BOARD_NUM = #{boardNum}
 	</update>
-	<delete id="delete" parameterType="_int">
+	<delete id="delete" parameterType="NoticeVO">
 		DELETE FROM NOTICE
 		WHERE
 		BOARD_NUM=#{boardNum}
-
-
 	</delete>
+	<select id="list" resultType="NoticeVO" parameterType="Pager">
+		select * from NOTICE
+	 <include refid="search" /> 
+		order by board_num DESC
+		limit #{startIndex},#{endIndex}
+	</select>
+	<insert id="insertFile" parameterType="BoardFileVO">
+		INSERT INTO NOTICEFILES
+		VALUES(null, #{oriName},#{saveName},#{boardNum})
+	</insert>
+	
+	<delete id="fileDelete" parameterType="NoticeVO">
+		DELETE FROM NOTICEFILES WHERE board_num=#{boardNum}
+	</delete>
+	<select id="fileDetail" parameterType="BoardFileVO" resultType="BoardFileVO">
+		SELECT * FROM NOTICEFILES
+		WHERE file_num=#{fileNum}
+	</select>
+	<delete id="fileDeleteOne" parameterType="BoardFileVO">
+		DELETE FROM NOTICEFILES WHERE file_num=#{fileNum}
+	
+	
+	</delete>
+	
+	
+	
+	
 </mapper>

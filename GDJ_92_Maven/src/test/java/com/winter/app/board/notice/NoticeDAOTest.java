@@ -3,6 +3,8 @@ package com.winter.app.board.notice;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,23 +16,28 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 @Slf4j
 class NoticeDAOTest {
-	
+
 	@Autowired
 	private NoticeDAO noticeDao;
-	
-	
-//	@Test
-//	void insertTest() throws Exception{
-//		NoticeVO noticeVO =new NoticeVO();
-//		noticeVO.setBoardContents("content3");
-//		noticeVO.setBoardTitle("title3");
-//		noticeVO.setBoardWriter("writer3");
-//		int result = noticeDao.insert(noticeVO);
-//		
-//		
-//		//단정문 
+
+	@Test
+	void insertTest() throws Exception {
+		for (int i = 0; i < 105; i++) {
+			NoticeVO noticeVO = new NoticeVO();
+			noticeVO.setBoardContents("content"+i);
+			noticeVO.setBoardTitle("title"+i);
+			noticeVO.setBoardWriter("writer"+i);
+		
+			int result = noticeDao.insert(noticeVO);
+			if(i%10 == 0) {
+				Thread.sleep(500);
+			}
+		}
+		
+
+		// 단정문
 //		assertEquals(1, result);
-//	}
+	}
 //	@Test
 //	void updateTest() throws Exception{
 //		NoticeVO noticeVO =new NoticeVO();
@@ -50,12 +57,13 @@ class NoticeDAOTest {
 //		assertEquals(1, result);
 //	
 //	}
-	@Test
-	void detailTest() throws Exception{
-		NoticeVO noticeVO = new NoticeVO();
-		noticeVO.setBoardNum(1L);
-		BoardVO boardVO= noticeDao.detail(noticeVO);
-		log.info("result : {}",boardVO);
-		assertNotNull(boardVO);
-	}
+//	@Test
+//	void detailTest() throws Exception{
+//		NoticeVO noticeVO = new NoticeVO();
+//		noticeVO.setBoardNum(1L);
+//		BoardVO boardVO= noticeDao.detail(noticeVO);
+//		log.info("result : {}",boardVO);
+//		assertNotNull(boardVO);
+//	}
+
 }

@@ -1,12 +1,10 @@
 package com.winter.app.board;
 
 import java.time.LocalDate;
-
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import lombok.Data;
 @Data
-@Repository
 public class BoardVO {
 	private Long boardNum;
 	private String boardTitle;
@@ -14,5 +12,5 @@ public class BoardVO {
 	private String boardWriter;
 	private LocalDate boardDate;
 	private Long boardHit;
-	
+	private List<BoardFileVO> boardFileVOs;
 }
