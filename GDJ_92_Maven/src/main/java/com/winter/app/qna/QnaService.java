@@ -94,7 +94,7 @@ public class QnaService implements BoardService {
 		qnaVO.setBoardRef(parent.getBoardRef());
 		qnaVO.setBoardDepth(parent.getBoardDepth() + 1);
 		qnaVO.setBoardStep(parent.getBoardStep() + 1);
-		result = qnaDao.replyInsert(qnaVO);
+		result = qnaDao.insert(qnaVO);
 		for (MultipartFile f : attaches) {
 			if (f == null || f.isEmpty())
 				continue;

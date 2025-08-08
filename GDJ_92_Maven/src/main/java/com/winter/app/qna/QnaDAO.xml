@@ -32,7 +32,7 @@
 		BOARD_CONTENTS, BOARD_WRITER ,
 		BOARD_DATE, BOARD_HIT,BOARD_REF , BOARD_STEP,BOARD_DEPTH)
 		VALUES
-		(NULL,#{boardTitle},#{boardContents},#{boardWriter},now(),0,0,0,0)
+		(NULL,#{boardTitle},#{boardContents},#{boardWriter},now(),0,#{boardRef},#{boardStep},#{boardDepth})
 	
 	</insert>
 	<update id="refUpdate" parameterType="QnaVO">
@@ -47,15 +47,6 @@
 		WHERE BOARD_REF=#{boardRef} AND BOARD_STEP > #{boardStep}
 
 	</update>
-	<insert id="replyInsert" parameterType="QnaVO" useGeneratedKeys="true" keyProperty="boardNum">
-		INSERT INTO QNA (BOARD_NUM ,BOARD_TITLE,
-		BOARD_CONTENTS, BOARD_WRITER ,
-		BOARD_DATE, BOARD_HIT,BOARD_REF , BOARD_STEP,BOARD_DEPTH)
-		VALUES
-		(NULL,#{boardTitle},#{boardContents},#{boardWriter},now(),0,#{boardRef},#{boardStep},#{boardDepth})
-		
-		
-	</insert>
 	<insert id="insertFile" parameterType="BoardFileVO">
 		INSERT INTO QNAFILES
 		VALUES (null, #{oriName},#{saveName},#{boardNum})
