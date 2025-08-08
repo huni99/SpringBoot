@@ -46,7 +46,8 @@ public class QnaService implements BoardService {
 			return result;
 		}
 		for (MultipartFile f : attaches) {
-
+			if (f == null || f.isEmpty())
+				continue;
 			String fileName = fileManager.fileSave(upload + board, f);
 
 			// 2. 저장된 파일의 정보를 DB에 저장

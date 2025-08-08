@@ -47,7 +47,7 @@
 	</select>
 
 	<select id="totalCount" resultType="long" parameterType="Pager">
-		SELECT COUNT(board_num) FROM notice
+		SELECT COUNT(board_num) FROM NOTICE
 		<include refid="search" />
 	</select>
 

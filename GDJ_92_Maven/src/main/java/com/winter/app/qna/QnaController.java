@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardVO;
-import com.winter.app.board.notice.NoticeVO;
 import com.winter.app.commons.Pager;
 
 

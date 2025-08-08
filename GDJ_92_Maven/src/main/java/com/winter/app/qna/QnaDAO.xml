@@ -63,7 +63,7 @@
 		WHERE BOARD_NUM = #{boardNum}
 	</update>
 	<select id="fileDetail" parameterType="BoardFileVO" resultType="BoardFileVO">
-		SELECT * FROM qnafiles
+		SELECT * FROM QNAFILES
 		WHERE file_num=#{fileNum}
 	
 	</select>
@@ -72,7 +72,7 @@
 		WHERE file_num=#{fileNum}
 	</delete>
 	<delete id= "delete" parameterType="QnaVO">
-		UPDATE qna SET board_title = " "
+		UPDATE QNA SET board_title = " "
 		WHERE board_num=#{boardNum}
 	</delete>
 </mapper>
