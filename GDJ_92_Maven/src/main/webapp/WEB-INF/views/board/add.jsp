@@ -84,13 +84,12 @@
 					const f = $(files[0]).attr("src");// /files/notice/****.jpg
 					let params = new URLSearchParams();
 					params.append("fileName",f);
-					console.log(params);
 					fetch("./boardFileDelete",{
 						method:"post",
 						body:params
 					}).then(r=>r.json())
 					  .then(r=>{
-						  console.log(r);
+						  alert("삭제");
 					  })
 					  
 					

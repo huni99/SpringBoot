@@ -108,8 +108,17 @@ public class QnaController {
 		model.addAttribute("vo",boardFileVO);
 		return "fileDownView";
 	}
-	
-
-	
+	@ResponseBody	
+	@PostMapping("boardFile")
+	public String boardFile(MultipartFile bf,Model model)throws Exception{
+		
+		return qnaService.boardFile(bf);
+	}
+	@ResponseBody
+	@PostMapping("boardFileDelete")
+	public boolean boardFileDelete(String fileName)throws Exception{
+		return qnaService.boardFileDelete(fileName);
+		
+	}
 	
 }

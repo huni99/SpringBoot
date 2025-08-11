@@ -126,5 +126,20 @@ public class QnaService implements BoardService {
 		return qnaDao.fileDetail(boardFileVO);
 	}
 	
-
+	@Override
+	public String boardFile(MultipartFile multipartFile) throws Exception {
+		if(multipartFile ==null || multipartFile.getSize()==0) {
+			return null;
+		}
+		String filename=fileManager.fileSave(upload+board, multipartFile);
+		
+		return "/files/"+board+"/"+filename;
+	}
+	
+	@Override
+	public boolean boardFileDelete(String fileName) throws Exception {
+		int index = fileName.lastIndexOf("/");
+		String oriName = fileName.substring(index+1);
+		return fileManager.fileDelete(upload+board,oriName);
+	}
 }
