@@ -39,7 +39,7 @@
 									<td>${detail.boardDate}</td>
 									<td>${detail.boardHit}</td>
 									<c:forEach var="f" items="${ detail.boardFileVOs}">
-									<td><a href="/files/${board}/${f.saveName}">${f.oriName}</a></td>
+									<td><a href="./fileDown?fileNum=${f.fileNum}">${f.oriName}</a></td>
 									<td>${f.saveName}</td>
 									</c:forEach>
 
