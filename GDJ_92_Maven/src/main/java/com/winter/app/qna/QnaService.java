@@ -125,5 +125,6 @@ public class QnaService implements BoardService {
 	public BoardFileVO fileDetail(BoardFileVO boardFileVO) throws Exception {
 		return qnaDao.fileDetail(boardFileVO);
 	}
+	
 
 }

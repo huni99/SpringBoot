@@ -25,6 +25,7 @@
 									<th>Title</th>
 									<th>Writer</th>
 									<th>Date</th>
+									<th>Contents</th>
 									<th>Hit</th>
 									<th>OriName</th>
 									<th>SaveName</th>
@@ -37,6 +38,7 @@
 									<td>${detail.boardTitle}</td>
 									<td>${detail.boardWriter}</td>
 									<td>${detail.boardDate}</td>
+									<td>${detail.boardContents}</td>
 									<td>${detail.boardHit}</td>
 									<c:forEach var="f" items="${ detail.boardFileVOs}">
 									<td><a href="./fileDown?fileNum=${f.fileNum}">${f.oriName}</a></td>

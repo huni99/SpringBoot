@@ -26,12 +26,9 @@ public class FileDownView extends AbstractView {
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		log.info("{}",model);
 		
 		BoardFileVO boardFileVO =(BoardFileVO)model.get("vo");
-		log.info("{}",boardFileVO);
 		String filePath = path+model.get("board").toString();
-		log.info("{}",filePath);
 		File file = new File(filePath,boardFileVO.getSaveName());
 		
 		//총 파일의 크기

@@ -15,26 +15,32 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardVO;
+import com.winter.app.commons.FileManager;
 import com.winter.app.commons.Pager;
 
 import lombok.extern.slf4j.Slf4j;
-
 
 
 @Controller
 @RequestMapping(value="/notice/*")
 @Slf4j
 public class NoticeController {
+
+    private final FileManager fileManager;
 	@Autowired
 	private NoticeService noticeService;
 	
 	@Value("${board.notice}")
 	private String name;
-	
+
 	
 	
 	@Autowired
 	private NoticeDAO noticeDao;
+
+    NoticeController(FileManager fileManager) {
+        this.fileManager = fileManager;
+    }
 //	@GetMapping("add")
 //	public void insert()throws Exception{
 //		NoticeVO noticeVO = new NoticeVO();
@@ -130,7 +136,17 @@ public class NoticeController {
 		model.addAttribute("vo",boardfileVO);
 		return "fileDownView";
 	}
-	
-	
+	@ResponseBody	
+	@PostMapping("boardFile")
+	public String boardFile(MultipartFile bf,Model model)throws Exception{
+		
+		return noticeService.boardFile(bf);
+	}
+	@ResponseBody
+	@PostMapping("boardFileDelete")
+	public boolean boardFileDelete(String fileName)throws Exception{
+		return noticeService.boardFileDelete(fileName);
+		
+	}
 	
 }
