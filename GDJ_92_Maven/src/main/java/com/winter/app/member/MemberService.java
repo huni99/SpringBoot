@@ -1,5 +1,8 @@
 package com.winter.app.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -39,7 +42,28 @@ public class MemberService {
 				 memberProfile.setSaveName(fileName);
 			}
 			result = memberDAO.insertFile(memberProfile);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("username",memberVO.getUsername());
+			map.put("roleNum",3);
+			
+			result=memberDAO.addRole(map);
 		return result;
 	}
+
+	public MemberVO detail(MemberVO memberVO)throws Exception {
+		
+	 return	memberDAO.detail(memberVO);
+		
+	}
+
+	public MemberVO check(MemberVO memberVO)throws Exception {
+		
+		memberVO=memberDAO.check(memberVO);
+		
+		return memberVO;
+		
+	}
+	
 
 }

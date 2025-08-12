@@ -15,11 +15,23 @@
 			<div id="content">
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
                 <div class="container-fluid">
-                	<!-- page contents 내용 -->
-                    <h1>Index</h1>
-                    <c:if test="${not empty member}">
-                    	이름 : ${member.name}
-                    </c:if>
+                	<div class="container-fluid justify-content-center container-md">
+						<!-- page contents 내용 -->
+						<form method="post">
+							<div class="mb-3">
+								<label for="username" class="form-label"> USERNAME </label> 
+								<input type="" class="form-control"
+									 id="username" name="username">
+							</div>
+								<div class="mb-3">
+								<label for="password" class="form-label"> password </label> 
+								<input type="password" class="form-control"
+									 id="password" name="password">
+							</div>
+
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+					</div>
                 </div>
 			</div>
 			<!-- END Content  -->
