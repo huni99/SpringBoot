@@ -3,10 +3,12 @@ package com.winter.app.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.commons.FileManager;
 
+@Transactional(rollbackFor=Exception.class)
 @Service
 public class MemberService {
 	
@@ -35,10 +37,6 @@ public class MemberService {
 				 fileName = fileManager.fileSave(upload+board, profile);
 				 memberProfile.setOriName(profile.getOriginalFilename());
 				 memberProfile.setSaveName(fileName);
-				 
-				 if(profile != null) {
-					 throw new Exception();
-				 }
 			}
 			result = memberDAO.insertFile(memberProfile);
 		return result;
