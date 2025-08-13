@@ -62,6 +62,9 @@
 							<button class="btn btn-danger action" data-kind="d">Delete</button>							
 						</div>
 					</div>
+					<div>
+						<button class="btn btn-primary action">장바구니</button>
+					</div>
 				</div>
 			</div>
 			<!-- END Content  -->
