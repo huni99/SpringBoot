@@ -42,6 +42,7 @@
                         <a class="collapse-item" href="/qna/list">Qna</a>
                         <a class="collapse-item" href="/member/join">회원가입</a>
                         <a class="collapse-item" href="/member/login">로그인</a>
+                        <a class="collapse-item" href="/products/list">Products</a>
                     </div>
                 </div>
             </li>
