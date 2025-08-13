@@ -1,10 +1,7 @@
 package com.winter.app.board;
 
 import java.time.LocalDate;
-
 import java.util.List;
-
-
 
 import lombok.Data;
 @Data
