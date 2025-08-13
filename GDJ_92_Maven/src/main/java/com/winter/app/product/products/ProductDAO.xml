@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
+<mapper namespace="com.winter.app.product.products.ProductDAO">
+	<resultMap type="ProductVO" id="detailResult">
+		<!-- PK Mapping  -->
+			<id property="productNum" column="product_num"></id>
+		<!-- 그외 나머지 -->
+		<result property="productName" column="product_name"></result>
+		<result property="productContents" column="product_contents"></result>
+		<result property="productDate" column="product_date"></result>
+		<result property="productRate" column="product_rate"></result>
+		<result property="kindNum" column="kind_num" />
+		
+		<!-- 1:1 관계일때 -->
+		<association property="productKindVO" javaType="ProductKindVO">
+			<id property="kindNum" column="kind_num" />
+			<result property="kindName" column="kind_name"/>
+		</association>
+	</resultMap>
+	<select id="list" resultType="ProductVO">
+		SELECT * FROM products ORDER BY product_num DESC
+	</select>
+	<select id = "detail" resultMap="detailResult" parameterType="ProductVO">
+		SELECT * FROM products NATURAL JOIN products_kind
+		WHERE product_num=#{productNum}
+	</select>
+	<insert id="insert" parameterType="ProductVO">
+		INSERT INTO products
+		VALUES(null,#{productName},#{productContents},#{productDate},#{productRate},#{kindNum} )
+	
+	
+	</insert>
+	<update id="update" parameterType="ProductVO">
+		update products 
+		set product_name=#{productName},product_contents=#{productContents},product_date=#{productDate}
+						,product_rate=#{productRate},kind_num=#{kindNum}
+		where product_num=#{productNum}
+	
+	</update>
+	
+	<delete id="delete" parameterType="ProductVO">
+		DELETE FROM products
+		WHERE product_num=#{productNum}
+	
+	</delete>
+</mapper>
