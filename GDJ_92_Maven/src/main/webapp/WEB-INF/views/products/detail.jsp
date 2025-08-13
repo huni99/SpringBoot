@@ -59,12 +59,14 @@
 								<input type="hidden" name="productNum" value="${detail.productNum }">
 							</form>
 							<button class="btn btn-primary action" data-kind="u">Update</button>						
-							<button class="btn btn-danger action" data-kind="d">Delete</button>							
+							<button class="btn btn-danger action" data-kind="d">Delete</button>	
+							<button class="btn btn-primary action" id="cartAdd" data-product-num="${detail.productNum}">장바구니</button>
+													
 						</div>
+						<div>
 					</div>
-					<div>
-						<button class="btn btn-primary action">장바구니</button>
 					</div>
+					
 				</div>
 			</div>
 			<!-- END Content  -->

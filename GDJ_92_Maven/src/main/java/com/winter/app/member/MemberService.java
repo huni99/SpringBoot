@@ -1,6 +1,7 @@
 package com.winter.app.member;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.commons.FileManager;
+import com.winter.app.product.products.ProductVO;
 
 @Transactional(rollbackFor=Exception.class)
 @Service
@@ -63,6 +65,16 @@ public class MemberService {
 		
 		return memberVO;
 		
+	}
+
+	public int cartAdd(Map<String, Object> map) throws Exception{
+		return memberDAO.cartAdd(map);
+		
+	}
+
+	public List<ProductVO> cartList(MemberVO username) throws Exception{
+		
+		return memberDAO.cartList(username);
 	}
 	
 
