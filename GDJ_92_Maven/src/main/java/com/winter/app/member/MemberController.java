@@ -44,7 +44,8 @@ public class MemberController {
 			session.removeAttribute("member");
 		return "redirect:/";
 	}
-	
-	
-	
+	@GetMapping("detail")
+	public void memberDetail() throws Exception{
+		
+	}
 }
