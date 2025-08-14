@@ -11,7 +11,7 @@ import com.winter.app.interceptors.UpdateWriterCheckInterceptor;
 public class InterceptorConfig implements WebMvcConfigurer{
 	@Autowired
 	private UpdateWriterCheckInterceptor updateWriterCheckInterceptor;
-	
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(updateWriterCheckInterceptor)
