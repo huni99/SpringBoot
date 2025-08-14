@@ -76,6 +76,18 @@ public class MemberService {
 		
 		return memberDAO.cartList(username);
 	}
+
+	public int cartDelete(MemberVO memberVO, Long[] productNum)throws Exception {
+		int result = 0;
+		Map<String , Object>map = new HashMap<>();
+		for(Long p : productNum) {
+			map.put("productNum", p);
+			map.put("username", memberVO);
+			result=memberDAO.cartDelete(map);
+		}
+		
+		return result;
+	}
 	
 
 }

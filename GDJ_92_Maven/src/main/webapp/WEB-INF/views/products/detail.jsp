@@ -61,6 +61,7 @@
 							<button class="btn btn-primary action" data-kind="u">Update</button>						
 							<button class="btn btn-danger action" data-kind="d">Delete</button>	
 							<button class="btn btn-primary action" id="cartAdd" data-product-num="${detail.productNum}">장바구니</button>
+							<button class="btn btn-danger action" id="Account" data-product-num="${detail.productNum}">상품 가입</button>	
 													
 						</div>
 						<div>

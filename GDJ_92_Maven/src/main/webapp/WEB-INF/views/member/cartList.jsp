@@ -54,6 +54,12 @@
 							</c:forEach>	
 							</tbody>
 						</table>
+						<form id="Frm" >
+						</form>
+						<div>
+							<button class="btn btn-danger deleteBtn ">삭제</button>
+							<button class="btn btn-danger addBtn ">상품 가입</button>
+						</div>
 						
 					</div>
 				</div>

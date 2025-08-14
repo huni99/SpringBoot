@@ -86,5 +86,10 @@
   
   
   </select>
+  <delete id="cartDelete" parameterType="java.util.Map">
+  	DELETE FROM CART
+  	WHERE USERNAME=#{username.username} AND PRODUCT_NUM=#{productNum}
+  
+  </delete>
   
   </mapper>

@@ -46,6 +46,12 @@ btn_cart.addEventListener("click",()=>{
 		  })
 	
 })
+const btn_account = document.getElementById("Account");
+btn_account.addEventListener("click",()=>{
+	frm.setAttribute("method","post");
+	frm.setAttribute("action","/account/add");
+	frm.submit();
+})
 
 
 
