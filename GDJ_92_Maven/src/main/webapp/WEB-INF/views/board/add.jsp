@@ -24,10 +24,9 @@
 					<form method="post" enctype="multipart/form-data">
 						<input type="hidden" value="${detail.boardNum}">
 						<div class="mb-3">
-							<label for="writer" class="form-label"> Writer </label> <input
-								type="text" class="form-control" value="${boardVO.boardWriter }"
-								id="writer" name="boardWriter">
+							<span>${member.username}</span>
 						</div>
+					
 						<div class="mb-3">
 							<label for="Title" class="form-label"> Title </label> <input
 								type="text" class="form-control" value="${boardVO.boardTitle }"

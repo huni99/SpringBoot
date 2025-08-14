@@ -15,11 +15,10 @@
 			<div id="content">
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
                 <div class="container-fluid">
-                	<!-- page contents 내용 -->
-                    <h1>Index</h1>
-                    <c:if test="${not empty member}">
-                    	이름 : ${member.name}
-                    </c:if>
+                	<div class="alert alert-primary" role="alert">
+						${member.username}
+						<img src="/files/member/${member.memberProfile.saveName}">                	
+                	</div>
                 </div>
 			</div>
 			<!-- END Content  -->

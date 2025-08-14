@@ -58,8 +58,7 @@
 	<update id="update" parameterType="QnaVO">
 		UPDATE QNA
 		SET
-		BOARD_TITLE=#{boardTitle} , BOARD_CONTENTS= #{boardContents},
-		BOARD_WRITER=#{boardWriter}
+		BOARD_TITLE=#{boardTitle} , BOARD_CONTENTS= #{boardContents}
 		WHERE BOARD_NUM = #{boardNum}
 	</update>
 	<select id="fileDetail" parameterType="BoardFileVO" resultType="BoardFileVO">
