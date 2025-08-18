@@ -16,7 +16,8 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
                 <div class="container-fluid">
                 	<div class="alert alert-primary" role="alert">
-						${member.username}
+						${member.username} <br>
+						${member.email}
 						<img src="/files/member/${member.memberProfile.saveName}">                	
                 	</div>
                 </div>

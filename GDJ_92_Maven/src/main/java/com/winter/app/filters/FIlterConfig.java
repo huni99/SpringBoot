@@ -18,7 +18,7 @@ public class FIlterConfig implements WebMvcConfigurer{
 		fr.setOrder(1);
 		return fr;
 	}
-	@Bean
+//	@Bean
 	FilterRegistrationBean<Filter> adminCheckFilter(){
 		FilterRegistrationBean<Filter> fr = new FilterRegistrationBean<>();
 		fr.setFilter(new AdminCheckFilter());

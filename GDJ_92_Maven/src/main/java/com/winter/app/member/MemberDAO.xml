@@ -91,5 +91,14 @@
   	WHERE USERNAME=#{username.username} AND PRODUCT_NUM=#{productNum}
   
   </delete>
+  <update id="update" parameterType="MemberVO">
+  	UPDATE  MEMBERS 
+  	SET NAME = #{name}
+  	   ,EMAIL = #{email}
+  	   ,PHONE = #{phone}
+  	   ,BIRTH = #{birth}
+  	WHERE USERNAME=#{username}
+  	
+  </update>
   
   </mapper>

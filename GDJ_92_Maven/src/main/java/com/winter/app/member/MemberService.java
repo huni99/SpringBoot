@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.commons.FileManager;
@@ -26,6 +27,30 @@ public class MemberService {
 	private String upload;
 	@Value("${board.member}")
 	private String board;
+	
+	//검증 메서드
+	public boolean hasMemberError(MemberVO memberVO , BindingResult bindingResult)throws Exception {
+		boolean check = false;
+		//check 가 true이면 검증 실패 (문제가 있음)
+		
+		//1. Annotation 검증
+		check=bindingResult.hasErrors();
+		
+		//2. 사용자 정의로 패스워드가 일치하는지 검증
+		if(!memberVO.getPassword().equals(memberVO.getPasswordCheck())) {
+			check = true;
+			bindingResult.rejectValue("passwordCheck", "member.password.notEqual");
+		}
+		
+		//3.ID 중복 검사
+		memberVO = memberDAO.detail(memberVO);
+		if(memberVO!=null) {
+
+			check = true;
+			bindingResult.rejectValue("username","member.id.duplicate");
+		}
+		return check;
+	}
 	
 	public int insert(MemberVO memberVO, MultipartFile profile)throws Exception {
 		
@@ -87,6 +112,11 @@ public class MemberService {
 		}
 		
 		return result;
+	}
+
+	public int update(MemberVO memberVO)throws Exception {
+			
+		return memberDAO.update(memberVO);
 	}
 	
 

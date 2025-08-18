@@ -20,21 +20,6 @@
 						<!-- page contents 내용 -->
 						<form:form modelAttribute="memberVO" method="post" enctype="multipart/form-data">
 							<div class="mb-3">
-								<label for="username" class="form-label"> USERNAME </label> 
-								<form:input path="username" cssClass="form-control"/>
-								<form:errors path="username"></form:errors>
-							</div>
-							<div class="mb-3">
-								<label for="password" class="form-label"> PASSWORD </label> 
-								<form:password path="password" cssClass="form-control"/>
-								<form:errors path="password"></form:errors>
-							</div>
-								<div class="mb-3">
-								<label for="passwordCheck" class="form-label"> PASSWORDCHECK </label> 
-								<form:password path="passwordCheck" cssClass="form-control"/>
-								<form:errors path="passwordCheck"></form:errors>
-							</div>
-							<div class="mb-3">
 								<label for="name" class="form-label"> NAME </label> 
 								<form:input path="name" cssClass="form-control"/>
 								<form:errors path="name"></form:errors>
@@ -51,7 +36,7 @@
 							<div class="mb-3">
 								<label for="BIRTH" class="form-label"> BIRTH </label> 
 								<input type="date" class="form-control"
-									 id="BIRTH" name="birth">
+									 id="BIRTH" name="birth" value= "${memberVO.birth}">
 									 <form:errors path="birth"></form:errors>
 							</div>
 								<div class="mb-3">
