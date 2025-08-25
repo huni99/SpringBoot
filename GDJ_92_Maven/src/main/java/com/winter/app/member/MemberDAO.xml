@@ -10,6 +10,10 @@
   		<result property="email" column="EMAIL"/>
   		<result property="phone" column="PHONE"/>
   		<result property="birth" column="BIRTH"/>
+  		<result column="ACCOUNT_NON_EXPIRED" property="accountNonExpired"/>
+  		<result column="ACCOUNT_NON_LOCKED" property="accountNonLocked"/>
+  		<result column="CREDENTIALS_NON_EXPIRED" property="credentialsNonExpired"/>
+  		<result column="ENABLED" property="enabled"/>
   		<association property="memberProfile" javaType="ProfileVO" >
   			<id property="username" column="USERNAME"/>
   			<result property="saveName" column="SAVE_NAME"/>

@@ -75,12 +75,12 @@ public class NoticeController {
 		
 		BoardVO boardVO = noticeService.detail(noticeVO);
 		model.addAttribute("detail",boardVO);
-		return "/board/detail";
+		return "board/detail";
 		
 	}
 	@GetMapping("add")
 	public String add(@ModelAttribute("boardVO") BoardVO noticeVO)throws Exception {
-		return "/board/add";
+		return "board/add";
 	}
 	@PostMapping("add")
 	public String add(@Valid BoardVO noticeVO,BindingResult bindingResult,MultipartFile[] attaches, HttpSession session)throws Exception {

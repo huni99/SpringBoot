@@ -3,8 +3,12 @@ package com.winter.app.member;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.winter.app.member.validation.AddGroup;
@@ -33,8 +37,23 @@ public class MemberVO implements UserDetails{
 	private String phone;
 	@Past(groups = {AddGroup.class,UpdateGroup.class})
 	private LocalDate birth;
+	private boolean accountNonExpired;
+	private boolean accountNonLocked;
+	private boolean credentialsNonExpired;
+	private boolean enabled;
 	private ProfileVO memberProfile;
 	private List<RoleVO> roleVOs;
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> list = new ArrayList<>();
+		for(RoleVO roleVO : roleVOs) {
+			list.add(new SimpleGrantedAuthority(roleVO.getRoleName()));
+			
+		}
+		return list;
+	}
+
 	
 	
 }

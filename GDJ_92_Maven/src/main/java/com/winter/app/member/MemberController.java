@@ -1,10 +1,13 @@
 package com.winter.app.member;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,23 +45,24 @@ public class MemberController {
 		return "redirect:/";
 	}
 	@GetMapping("update")
-	public String update(HttpSession session,Model model)throws Exception {
+	public String update(Model model)throws Exception {
 		
-		MemberVO memberVO=(MemberVO)session.getAttribute("member");
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		MemberVO memberVO=(MemberVO)authentication.getPrincipal();
+		
 		model.addAttribute("memberVO", memberVO);
 		return "member/memberUpdate";
 	}
 	
 	@PostMapping("update")
-	public String update(@Validated(UpdateGroup.class) MemberVO memberVO,BindingResult bindingResult,MultipartFile profile,HttpSession session)throws Exception{
+	public String update(@Validated(UpdateGroup.class) MemberVO memberVO,BindingResult bindingResult,MultipartFile profile)throws Exception{
 		if(bindingResult.hasErrors()) {
 			return"member/memberUpdate";
 		}
-		session.getAttribute("member");
-		memberVO.setUsername(((MemberVO)session.getAttribute("member")).getUsername());
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		memberVO=(MemberVO)authentication.getPrincipal();
 		int result = memberService.update(memberVO);
 		memberVO=memberService.detail(memberVO);
-		session.setAttribute("member", memberVO);
 		
 		return"redirect:./detail";
 	}
@@ -68,11 +72,6 @@ public class MemberController {
 	@GetMapping("login")
 	public void memberLogin()throws Exception{}
 	
-	@GetMapping("logout")
-	public String memberLogout(HttpSession session)throws Exception{
-			session.removeAttribute("member");
-		return "redirect:/";
-	}
 	@GetMapping("detail")
 	public void memberDetail() throws Exception{
 		

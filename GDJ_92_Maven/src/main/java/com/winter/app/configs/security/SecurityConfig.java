@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -39,7 +40,7 @@ public class SecurityConfig {
 				auth	
 					.requestMatchers("/notice/add","/notice/update","/notice/delete").hasRole("ADMIN")
 					.requestMatchers("/products/add","/products/update","/products/delete").hasAnyRole("ADMIN","MANAGER")
-//					.requestMatchers("/member/member","/member/logout","/member/update","/member/delete").access("hasRole('ROLE_MEMBER)') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')");
+					//.requestMatchers("/member/member","/member/logout","/member/update","/member/delete").access("hasRole('ROLE_MEMBER)') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')");
 					.requestMatchers("/member/detail","/member/logout","/member/update","/member/delete").authenticated()
 					.anyRequest().permitAll()
 					;
@@ -49,10 +50,19 @@ public class SecurityConfig {
 			.formLogin(form->{
 				form
 					.loginPage("/member/login")
-//					.usernameParameter("username")
-//					.passwordParameter("password")
+					//.usernameParameter("username")
+					//.passwordParameter("password")
 					.defaultSuccessUrl("/")
 					.failureUrl("/member/login")
+					;
+			})
+			//logout 설정
+			.logout(logout->{
+				logout
+					.logoutUrl("/member/logout")
+					.invalidateHttpSession(true)
+					.deleteCookies("JSESSIONID")
+					.logoutSuccessUrl("/")
 					;
 			})
 			;

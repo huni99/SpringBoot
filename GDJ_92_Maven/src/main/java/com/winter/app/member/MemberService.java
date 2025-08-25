@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -31,9 +32,22 @@ public class MemberService implements UserDetailsService{
 	@Value("${board.member}")
 	private String board;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		username
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUsername(username);
+		System.out.println("로그인 서비스");
+		try {
+			 memberVO=memberDAO.detail(memberVO);
+			
+			return memberVO;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
@@ -62,8 +76,11 @@ public class MemberService implements UserDetailsService{
 	}
 	
 	public int insert(MemberVO memberVO, MultipartFile profile)throws Exception {
-		
+			
+			System.out.println(memberVO.getPassword());
+			memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
 			int result = memberDAO.insert(memberVO);
+			System.out.println(memberVO.getPassword());
 			
 			ProfileVO memberProfile = new ProfileVO();
 			String fileName="Default.jpg";
@@ -93,13 +110,6 @@ public class MemberService implements UserDetailsService{
 		
 	}
 
-	public MemberVO check(MemberVO memberVO)throws Exception {
-		
-		memberVO=memberDAO.check(memberVO);
-		
-		return memberVO;
-		
-	}
 
 	public int cartAdd(Map<String, Object> map) throws Exception{
 		return memberDAO.cartAdd(map);
@@ -124,7 +134,7 @@ public class MemberService implements UserDetailsService{
 	}
 
 	public int update(MemberVO memberVO)throws Exception {
-			
+		
 		return memberDAO.update(memberVO);
 	}
 	
