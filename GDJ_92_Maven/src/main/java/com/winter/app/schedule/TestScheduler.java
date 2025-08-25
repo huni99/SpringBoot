@@ -24,7 +24,7 @@ public class TestScheduler {
 		System.out.println(LocalDateTime.now());
 	}
 	
-	@Scheduled(cron ="3 * * * * * " )
+//	@Scheduled(cron ="3 * * * * * " )
 	public void m3()throws Exception{
 		System.out.println(LocalDateTime.now());
 
