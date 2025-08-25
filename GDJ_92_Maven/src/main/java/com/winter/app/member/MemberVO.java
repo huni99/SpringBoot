@@ -5,6 +5,8 @@ package com.winter.app.member;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.winter.app.member.validation.AddGroup;
 import com.winter.app.member.validation.UpdateGroup;
 
@@ -15,7 +17,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class MemberVO {
+public class MemberVO implements UserDetails{
 	@NotBlank(message = "ID는필수",groups = AddGroup.class)
 	private String username;
 	
@@ -33,4 +35,6 @@ public class MemberVO {
 	private LocalDate birth;
 	private ProfileVO memberProfile;
 	private List<RoleVO> roleVOs;
+	
+	
 }

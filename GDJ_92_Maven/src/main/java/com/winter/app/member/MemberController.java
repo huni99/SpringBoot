@@ -67,17 +67,7 @@ public class MemberController {
 	
 	@GetMapping("login")
 	public void memberLogin()throws Exception{}
-	@PostMapping("login")
-	public String memberLogin(MemberVO memberVO ,HttpSession session)throws Exception{
-			
-		MemberVO checkmemberVO = memberService.check(memberVO);
-			if(checkmemberVO==null) {
-				return "redirect:/";
-			}
-			memberVO = memberService.detail(memberVO);
-			session.setAttribute("member", memberVO);
-		return "redirect:/";
-	}
+	
 	@GetMapping("logout")
 	public String memberLogout(HttpSession session)throws Exception{
 			session.removeAttribute("member");

@@ -6,6 +6,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -16,7 +19,7 @@ import com.winter.app.product.products.ProductVO;
 
 @Transactional(rollbackFor=Exception.class)
 @Service
-public class MemberService {
+public class MemberService implements UserDetailsService{
 	
 	@Autowired
 	MemberDAO memberDAO;
@@ -27,6 +30,12 @@ public class MemberService {
 	private String upload;
 	@Value("${board.member}")
 	private String board;
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		username
+		return null;
+	}
 	
 	//검증 메서드
 	public boolean hasMemberError(MemberVO memberVO , BindingResult bindingResult)throws Exception {
