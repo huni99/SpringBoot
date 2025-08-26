@@ -17,16 +17,29 @@
                 <div class="container-fluid">
                 	<div class="container-fluid justify-content-center container-md">
 						<!-- page contents 내용 -->
+						<h3>${param.failMessage}</h3>
 						<form method="post">
 							<div class="mb-3">
-								<label for="username" class="form-label"> USERNAME </label> 
-								<input type="" class="form-control"
-									 id="username" name="username">
+								<label for="username"class="form-label"> USERNAME </label> 
+								<input type="text" class="form-control"
+									 id="username" name="username"  value="${cookie.rememberId.value }" >
 							</div>
-								<div class="mb-3">
+							<div class="mb-3">
 								<label for="password" class="form-label"> password </label> 
 								<input type="password" class="form-control"
 									 id="password" name="password">
+							</div>
+							<div class="mb-3 form-check">
+								
+								<input type="checkbox" class="form-check-input"
+									 id="check" name="rememberId"  value="1">
+									 <label for="check" class="form-label"> ID 기억하기 </label> 
+							</div>
+							<div class="mb-3 form-check">
+								
+								<input type="checkbox" class="form-check-input"
+									 id="remember-me" name="remember-me"  value="1">
+									 <label for="remember-me" class="form-label"> 자동 로그인 </label> 
 							</div>
 
 							<button type="submit" class="btn btn-primary">Submit</button>

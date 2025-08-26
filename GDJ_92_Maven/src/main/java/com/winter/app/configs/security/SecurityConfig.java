@@ -1,18 +1,29 @@
 package com.winter.app.configs.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.winter.app.member.MemberService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-	
+	@Autowired
+	private LoginSuccessHandler loginSuccessHandler;
+	@Autowired
+	private LoginFailureHandler loginFailureHandler;
+	@Autowired
+	private AddLogoutSuccessHandler addlogoutSuccessHandler;
+	@Autowired
+	private AddLogoutHandler addlogoutHandler;
+	@Autowired
+	private MemberService memberService;
+//	
 	//정적자원들을 Security에서 제외
 	@Bean
 	WebSecurityCustomizer customizer() {
@@ -52,17 +63,32 @@ public class SecurityConfig {
 					.loginPage("/member/login")
 					//.usernameParameter("username")
 					//.passwordParameter("password")
-					.defaultSuccessUrl("/")
-					.failureUrl("/member/login")
+					//.defaultSuccessUrl("/")  //redirect로 보냄
+					//.successForwardUrl("/") // forwoard로 보냄
+					.successHandler(loginSuccessHandler)
+					.failureHandler(loginFailureHandler)
+					//.failureUrl("/member/login")
 					;
 			})
 			//logout 설정
 			.logout(logout->{
 				logout
 					.logoutUrl("/member/logout")
+					.logoutSuccessHandler(addlogoutSuccessHandler)
+					.addLogoutHandler(addlogoutHandler)
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
-					.logoutSuccessUrl("/")
+//					.logoutSuccessUrl("/")
+					;
+			})
+			.rememberMe((remember)->{
+				remember
+					.rememberMeParameter("remember-me")
+					.tokenValiditySeconds(60)
+					.key("rememberkey")
+					.userDetailsService(memberService)
+					.authenticationSuccessHandler(loginSuccessHandler)
+					.useSecureCookie(false)
 					;
 			})
 			;

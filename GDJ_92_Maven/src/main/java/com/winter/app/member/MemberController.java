@@ -70,7 +70,13 @@ public class MemberController {
 	
 	
 	@GetMapping("login")
-	public void memberLogin()throws Exception{}
+	public String memberLogin(Principal principal)throws Exception{
+		if(principal!=null) {
+			return "redirect:/";
+		}else {
+		return "member/login";
+		}
+	}
 	
 	@GetMapping("detail")
 	public void memberDetail() throws Exception{

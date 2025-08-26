@@ -54,6 +54,4 @@ public class MemberVO implements UserDetails{
 		return list;
 	}
 
-	
-	
 }
