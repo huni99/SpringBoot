@@ -91,6 +91,11 @@ public class SecurityConfig {
 					.useSecureCookie(false)
 					;
 			})
+			.oauth2Login(o->{
+				o.userInfoEndpoint(user->{
+					user.userService(memberService);
+				});
+			})
 			;
 		return httpSecurity.build();
 	}

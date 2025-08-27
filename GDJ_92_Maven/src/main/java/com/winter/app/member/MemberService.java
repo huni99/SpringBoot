@@ -1,6 +1,8 @@
 package com.winter.app.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -18,9 +24,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.winter.app.commons.FileManager;
 import com.winter.app.product.products.ProductVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Transactional(rollbackFor=Exception.class)
 @Service
-public class MemberService implements UserDetailsService{
+@Slf4j
+public class MemberService   extends DefaultOAuth2UserService implements UserDetailsService{
 	
 	@Autowired
 	MemberDAO memberDAO;
@@ -50,6 +59,53 @@ public class MemberService implements UserDetailsService{
 		}
 		return null;
 	}
+	
+	@Override
+	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+		log.info("{}",userRequest.getAccessToken());
+		log.info("{}",userRequest.getAdditionalParameters());
+		log.info("{}",userRequest.getClientRegistration());
+		
+		String sns = userRequest.getClientRegistration().getRegistrationId();
+		OAuth2User user=null;
+		if(sns.toUpperCase().equals("KAKAO")) {
+			
+			user = this.useKakao(userRequest);
+			
+		}
+		
+		return user;
+	}
+	private OAuth2User useKakao(OAuth2UserRequest userRequest) {
+		OAuth2User user = super.loadUser(userRequest);
+		log.info("{}",user.getName());
+		log.info("{}",user.getAttributes());
+		log.info("{}",user.getAuthorities());
+		Map<String,Object>map = user.getAttributes();
+		LinkedHashMap<String, Object> m =(LinkedHashMap)map.get("properties");
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUsername(m.get("nickname").toString());
+		memberVO.setAccessToken(userRequest.getAccessToken().getTokenValue());
+		ProfileVO profileVO = new ProfileVO();
+		profileVO.setSaveName(m.get("profile_image").toString());
+		memberVO.setMemberProfile(profileVO);
+		
+		List<RoleVO> list = new ArrayList<>();
+		RoleVO roleVO= new RoleVO();
+		
+		roleVO.setRoleName("ROLE_MEMBER");
+		list.add(roleVO);
+		memberVO.setRoleVOs(list);
+		
+		memberVO.setAttributes(map);
+		
+		memberVO.setSns("kakao");
+		
+		return memberVO;
+		
+	}
+	
 	
 	//검증 메서드
 	public boolean hasMemberError(MemberVO memberVO , BindingResult bindingResult)throws Exception {

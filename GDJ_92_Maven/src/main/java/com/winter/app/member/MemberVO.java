@@ -6,10 +6,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.winter.app.member.validation.AddGroup;
 import com.winter.app.member.validation.UpdateGroup;
@@ -21,7 +23,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class MemberVO implements UserDetails{
+public class MemberVO implements UserDetails, OAuth2User{
 	@NotBlank(message = "ID는필수",groups = AddGroup.class)
 	private String username;
 	
@@ -44,6 +46,14 @@ public class MemberVO implements UserDetails{
 	private ProfileVO memberProfile;
 	private List<RoleVO> roleVOs;
 	
+	//----------------------------------------Social
+	private Map<String, Object> attributes;
+	
+	private String accessToken;
+	
+	private String sns;
+
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> list = new ArrayList<>();
@@ -53,5 +63,6 @@ public class MemberVO implements UserDetails{
 		}
 		return list;
 	}
+	
 
 }

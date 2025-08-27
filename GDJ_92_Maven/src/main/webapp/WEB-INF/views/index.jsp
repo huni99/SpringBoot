@@ -31,7 +31,7 @@
                     		                    	
                     	</h3>
                     </c:if> --%>
-					<sec:authorize access="isAuthenticated()">
+					<%-- <sec:authorize access="isAuthenticated()">
 						<sec:authentication property="principal" var="member" />
 						<h3>${member.name}, ${member.email}</h3>
 						<h3>
@@ -43,7 +43,7 @@
 
 
 					</sec:authorize>
-
+ --%>
 				</div>
 			</div>
 			<!-- END Content  -->

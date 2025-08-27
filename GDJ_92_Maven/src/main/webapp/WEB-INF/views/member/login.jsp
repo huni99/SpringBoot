@@ -46,7 +46,7 @@
 						</form>
 						<br>
 							<div>
-								<a class="btn btn-primary"href="/member/kakakoLogin">카카오로그인</a>							
+								<a class="btn btn-primary"href="/oauth2/authorization/kakao">카카오로그인</a>							
 							
 							</div>
 					</div>
