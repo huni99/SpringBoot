@@ -44,6 +44,11 @@
 
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
+						<br>
+							<div>
+								<a class="btn btn-primary"href="/member/kakakoLogin">카카오로그인</a>							
+							
+							</div>
 					</div>
                 </div>
 			</div>
