@@ -23,6 +23,9 @@
 						${member.email}
 						<img src="/files/member/${member.memberProfile.saveName}">                	
                 	</div>
+                	<div >
+                		<a href="./delete">탈퇴</a>
+                	</div>
                 </div>
 			</div>
 			<!-- END Content  -->

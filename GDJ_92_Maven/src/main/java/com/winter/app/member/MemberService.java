@@ -90,7 +90,7 @@ public class MemberService   extends DefaultOAuth2UserService implements UserDet
 		ProfileVO profileVO = new ProfileVO();
 		profileVO.setSaveName(m.get("profile_image").toString());
 		memberVO.setMemberProfile(profileVO);
-		
+		memberVO.setName(user.getName());
 		List<RoleVO> list = new ArrayList<>();
 		RoleVO roleVO= new RoleVO();
 		
