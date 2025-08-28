@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
-//@ControllerAdvice
+@ControllerAdvice
 public class ExceptionController {
 
 	
@@ -24,6 +24,8 @@ public class ExceptionController {
 		return "errors/error";
 		
 	}
-	
-	
+	@ExceptionHandler(exception =Throwable.class )
+	public String error4() {
+		return "errors/error";
+	}
 }

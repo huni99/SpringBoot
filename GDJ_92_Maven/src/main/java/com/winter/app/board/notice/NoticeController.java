@@ -160,9 +160,9 @@ public class NoticeController {
 		return noticeService.boardFileDelete(fileName);
 		
 	}
-	
-	@ExceptionHandler(exception = Exception.class)
-	public String error() {
-		return "errors/error";
-	}
+//	
+//	@ExceptionHandler(exception = Exception.class)
+//	public String error() {
+//		return "errors/error";
+//	}
 }
