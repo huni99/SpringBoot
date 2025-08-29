@@ -1,32 +1,31 @@
 package com.winter.app.board.notice;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RequestMapping("/notice/**")
 @RestController
 public class NoticeController {
-	
 	@Autowired
 	private NoticeService noticeService;
 	
 	@GetMapping("")
-	public List<NoticeVO> list()throws Exception{
-		return noticeService.list();
+	
+	//페이징 처리 관련 참고 https://juntcom.tistory.com/219
+	public Page<NoticeVO> list(@PageableDefault(sort="boardNum",direction =Sort.Direction.DESC) Pageable pageable)throws Exception{
+		
+		return noticeService.list(pageable);
 	}
 	@GetMapping("{boardNum}")
 	public NoticeVO detail(@PathVariable("boardNum") Long boardNum)throws Exception {
+		NoticeVO noticeVO = noticeService.detail(boardNum);
 		return noticeService.detail(boardNum);
 	}
 	
