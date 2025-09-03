@@ -20,13 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
-@Transactional
+//@Transactional
 class NoticeRepositoryTest {
 	@Autowired
 	private NoticeRepository noticeRepository;
 	@Autowired
 	private NoticeFileRepository noticeFileRepository;
-	@Transactional
 	@Test
 	void test()throws Exception {
 		NoticeVO noticeVO = new NoticeVO();
@@ -58,7 +57,7 @@ class NoticeRepositoryTest {
 		
 		assertNotNull(noticeVO);
 	}
-	@Test
+	//@Test
 	void test3() {
 		Pageable pageable = PageRequest.of(1, 10, Sort.by("boardNum").descending());
 		

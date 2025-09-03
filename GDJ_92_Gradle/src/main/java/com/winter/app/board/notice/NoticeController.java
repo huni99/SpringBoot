@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +27,12 @@ public class NoticeController {
 	@GetMapping("{boardNum}")
 	public NoticeVO detail(@PathVariable("boardNum") Long boardNum)throws Exception {
 		NoticeVO noticeVO = noticeService.detail(boardNum);
-		return noticeService.detail(boardNum);
+		return noticeVO;
 	}
+	@PostMapping("")
+	public NoticeVO add(NoticeVO noticeVO)throws Exception {
+		return noticeService.add(noticeVO);
+	}
+	
 	
 }
