@@ -1,7 +1,11 @@
 package com.winter.app.member;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -20,8 +24,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MemberVO {
-	
+public class MemberVO implements UserDetails {
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
 	@Id
 	private String username;
 	
