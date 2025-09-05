@@ -40,6 +40,8 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			} catch (Exception e) {
 				e.printStackTrace();
+				//access token 이 만료되었지만 refresh token이  유효 하다면 
+				//새로 access token을 발급 하고, 로그인 시키고 dofilter로 통과
 			}
 			
 			
